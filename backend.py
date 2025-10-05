@@ -13,6 +13,8 @@ def extractPdf(pdf_file):
         text +=  page.extract_text() 
     return text
 
+
+
 # Function to get user prompt and generate response through the extracted text
 def Q_and_A_Chatbot():
     prompt_file = open("responses.txt", "a")
@@ -28,5 +30,3 @@ def Q_and_A_Chatbot():
     response = model.generate_content([pdfFile, prompt])
     prompt_file.write(f"\n{response.text}\n\n")
     prompt_file.close()
-
-Q_and_A_Chatbot()
