@@ -17,7 +17,7 @@ def extractPdf(pdf_file):
 
 # Function to get user prompt and generate response through the extracted text
 def Q_and_A_Chatbot(pdf_file_text, user_prompts):
-    instructions = "Answer the quetions the user asked, only form the topics in the text given to you, No Generalization, and if someone asks about anything other than that text, Say that Sorry I am not trained for this, and don't summarize the text also but, and don't say anything if the user's question is relevant"
+    instructions = "Answer only the questions that are directly related to the content provided in the PDF text. Do not use or include any external or generalized knowledge beyond what is present in the document. If a user asks a question that is unrelated to the PDF, respond with “Sorry, I am not trained for this.” Avoid summarizing or restating the entire document—your responses should be concise, factual, and limited strictly to the context of the provided text."
     genai.configure(api_key = os.environ.get("GOOGLE_API_KEY"))
     model = genai.GenerativeModel("gemini-2.5-flash")
     # prompt = instructions + "\n\nUser Question: " + user_prompts + "\n\nPDF Text: " + pdfFile
