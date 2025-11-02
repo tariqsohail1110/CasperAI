@@ -1,5 +1,6 @@
 import streamlit as st
 import backend as bk
+import time
 
 st.set_page_config(page_title = "CasperAI", page_icon = ":books:", layout = "centered")
 
@@ -15,4 +16,14 @@ if pdf_file and user_prompt:
     message.write(user_prompt)
     text = bk.extractPdf(pdf_file)
     # st.session_state["pdf_text": text]
-    response.write(bk.Q_and_A_Chatbot(text, user_prompt))
+    response.write("Casper")
+    def gen_output():
+        """
+        Generate response from backend in a streaming manner.
+        """
+        response = bk.Q_and_A_Chatbot(text, user_prompt)
+        for char in response.split(" "):
+            yield char + " "
+            time.sleep(0.05)
+    
+    st.write_stream(gen_output)
